@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -40,9 +41,12 @@ public class MainActivity extends AppCompatActivity {
                 calendar.set(calendar.MINUTE, materialTimePicker.getMinute());
                 calendar.set(calendar.MINUTE, Calendar.HOUR_OF_DAY, materialTimePicker.getHour());
 
-                AlarmManager alarMManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
                 AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), getAlarmInfoPendingIntent());
+
+                alarmManager.setAlarmClock(alarmClockInfo, getAlarmInfoPendingIntent());
+                Toast.makeText(this, "Alarm is", Toast.LENGTH_SHORT).show();
             });
 
             materialTimePicker.show(getSupportFragmentManager(),"tag_picker");
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private PendingIntent getAlarmActionPendingIntent(){
-        Intent  intent= new Intent(this,);
+        Intent  intent= new Intent(this, AlarmActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
+        return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
