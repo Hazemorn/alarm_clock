@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
                 AlarmManager alarMManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-                AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(),);
+                AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), getAlarmInfoPendingIntent());
             });
 
             materialTimePicker.show(getSupportFragmentManager(),"tag_picker");
@@ -53,5 +53,9 @@ public class MainActivity extends AppCompatActivity {
         Intent alarmInfoIntent = new Intent(this, MainActivity.class);
         alarmInfoIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(this, 0, alarmInfoIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private PendingIntent getAlarmActionPendingIntent(){
+        Intent  intent= new Intent(this,);
     }
 }
