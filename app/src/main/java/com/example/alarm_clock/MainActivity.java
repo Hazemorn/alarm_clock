@@ -13,7 +13,9 @@ import android.widget.Toast;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SimpleDateFormat sdf= new SimpleDateFormat("hh:mm", Locale.getDefault());
         butset = findViewById(R.id.but_set);
 
         butset.setOnClickListener(v ->{
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), getAlarmInfoPendingIntent());
 
                 alarmManager.setAlarmClock(alarmClockInfo, getAlarmInfoPendingIntent());
-                Toast.makeText(this, "Alarm is", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Alarm is" + sdf.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
             });
 
             materialTimePicker.show(getSupportFragmentManager(),"tag_picker");
@@ -62,6 +65,6 @@ public class MainActivity extends AppCompatActivity {
     private PendingIntent getAlarmActionPendingIntent(){
         Intent  intent= new Intent(this, AlarmActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
-        return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
